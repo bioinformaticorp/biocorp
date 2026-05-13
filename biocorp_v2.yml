@@ -1,0 +1,80 @@
+name: biocorp_v2
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - nodefaults
+
+dependencies:
+  # ── LENGUAJES Y BASE ─────────────────────────────────────────────────────────
+  - python=3.10            # ← Cambiado de 3.11: bowtie2 y pysam no soportan 3.11
+  - pip
+  - perl=5.32
+
+  # ── CONTROL DE CALIDAD ───────────────────────────────────────────────────────
+  - fastp=0.23.4           # QC + recorte de adaptadores
+  - multiqc=1.21           # Reporte unificado de calidad
+
+  # ── MAPEO ────────────────────────────────────────────────────────────────────
+  - bwa-mem2=2.2.1         # Mapeo ultrarrápido
+  - bwa=0.7.17             # Mapeo clásico
+  - bowtie2=2.5.3          # Mapeo alternativo (requiere Python <=3.10)
+
+  # ── PROCESAMIENTO DE ALINEAMIENTOS ───────────────────────────────────────────
+  - samtools=1.20          # Procesamiento BAM/SAM
+  - bamtools=2.5.2         # Herramientas adicionales para BAM
+  - mosdepth=0.3.8         # Análisis de cobertura
+  # htslib: eliminado pin explícito — samtools=1.20 instala la versión correcta
+
+  # ── LLAMADO DE VARIANTES ─────────────────────────────────────────────────────
+  - freebayes=1.3.6        # Llamado de variantes SNPs/indels
+  - bcftools=1.20          # Filtrado e indexado de VCF
+  - vcftools=0.1.16        # Estadísticas clásicas de VCF
+  - vcflib=1.0.9           # Utilidades VCF
+  - parallel=20230722      # GNU parallel para paralelizar freebayes
+
+  # ── ANOTACIÓN DE VARIANTES ───────────────────────────────────────────────────
+  - snpeff=5.2             # Anotación funcional de SNPs
+  - snpsift=5.2            # Filtrado avanzado de VCF anotados
+
+  # ── ENSAMBLE DE NOVO ─────────────────────────────────────────────────────────
+  - spades=3.15.5          # Ensamble de novo de genomas bacterianos
+  - megahit=1.2.9          # Ensamble de novo para metagenomas
+
+  # ── EVALUACIÓN DE ENSAMBLES ──────────────────────────────────────────────────
+  - quast=5.2.0            # Evaluación de calidad de ensambles
+
+  # ── ALINEAMIENTO MÚLTIPLE Y FILOGENIA ────────────────────────────────────────
+  - muscle=5.1             # Alineamiento múltiple rápido
+  - mafft=7.520            # Alineamiento múltiple alta precisión
+  - iqtree=2.3.6           # Inferencia filogenética ML
+  - fasttree=2.1.11        # Árbol filogenético rápido
+
+  # ── UTILIDADES GENERALES ─────────────────────────────────────────────────────
+  - wget
+  - curl
+  - seqtk=1.4              # Manipulación de FASTQ/FASTA
+  - bedtools=2.31.1        # Operaciones con intervalos genómicos
+  - blast=2.15.0           # BLAST para búsqueda de homólogos
+  - entrez-direct=22.1     # Descarga de datos de NCBI
+  - openssl
+  - zlib
+  - bzip2
+  - xz
+  - ncurses
+
+  # ── ANOTACIÓN FUNCIONAL ───────────────────────────────────────────────────────
+  - prokka=1.14.6          # Anotación de genomas bacterianos
+  - prodigal=2.6.3         # Predicción de genes procariontes
+
+  # ── PYTHON ───────────────────────────────────────────────────────────────────
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - biopython
+  - pysam=0.22.0           # Compatible con Python 3.10
+
+  - pip:
+    - cyvcf2==0.31.1       # Manipulación rápida de VCF en Python
+    - pyvcf3==1.0.3        # Parseo de VCF en Python
